@@ -182,12 +182,17 @@ class Utils
 
         foreach ($array as $val) {
             //排除目录中的.和..
-            if ($val == '.' || $val == '..' || $val == '.gitignore' || !is_dir($path . $val)) {
+            if ($val == '.' || $val == '..' || $val == '.gitignore') {
                 continue;
             }
 
+            if (!is_dir($path . $val)) {
+                self::DelFile($path . $val);
+                continue;
+            }
             //如果是目录则递归子目录，继续操作 子目录中操作删除文件夹和文件
             self::delDir($path . $val . '/');
+
             //目录清空后删除空文件夹
             @rmdir($path . $val . '/');
         }

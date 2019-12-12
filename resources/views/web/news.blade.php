@@ -15,7 +15,7 @@
             @if(!empty($info))
                 <h3>{{ $info['title'] }}</h3>
 
-                <p>{{ $info['content'] }}</p>
+                <p>{!! $info['content'] !!}</p>
             @else
 
                 <ul>
@@ -26,7 +26,7 @@
                                 <div class="txt">
                                     {{ $value['title'] }}
                                     <p>
-                                        {{ StrLimit($value['content'],300) }}
+                                        {!! StrLimit($value['content'],300) !!}
                                     </p>
                                 </div>
                                 <span>详情>></span>

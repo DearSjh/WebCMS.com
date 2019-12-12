@@ -137,9 +137,9 @@ $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($
 /**
 * 关键词设置
 */
-    $router->get('/keywordConf/edit', 'KeywordConfigController@edit');
-    $router->post('/keywordConf/edit', 'KeywordConfigController@edit');
-
+    $router->get('/keywordConf/edit', 'KeywordController@edit');
+    $router->post('/keywordConf/edit', 'KeywordController@edit');
+    $router->get('/keywordRank/list', 'KeywordController@keywordRankingList');
 
 /**
  *文件上传
