@@ -22,7 +22,7 @@ class UpdateBanner
             'sort' => 'integer|min:1',
             'state' => 'required|integer|in:0,1',
             'title' => 'required|string',
-            'picture' => 'required|string',
+            'picture' => 'string',
         ];
     }
 
@@ -35,7 +35,6 @@ class UpdateBanner
             'title.required' => '标题必填',
             'title.string' => '标题类型有误',
 
-            'picture.required' => '图片地址必填',
             'picture.string' => '图片地址类型有误',
 
             'state.required' => '状态必填',

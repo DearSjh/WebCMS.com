@@ -58,7 +58,7 @@ class  BannedWord extends Model
             throw new \Exception('该违禁词不存在，请先添加');
         }
 
-        !empty($params['word']) && $qb->word = $params['word'];
+        $qb->word = ($params['word'] ?? '');
 
         return $qb->update();
     }

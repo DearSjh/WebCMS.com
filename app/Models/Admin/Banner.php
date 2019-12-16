@@ -73,10 +73,10 @@ class Banner extends Model
             throw new \Exception('幻灯片不存在，请先添加');
         }
 
-        !empty($params['picture']) && $qb->picture = $params['picture'];
-        !empty($params['title']) && $qb->title = $params['title'];
-        !empty($params['link']) && $qb->link = $params['link'];
-        !empty($params['sort']) && $qb->sort = $params['sort'];
+        $qb->picture = ($params['picture'] ?? '');
+        $qb->title = ($params['title'] ?? '');
+        $qb->link = ($params['link'] ?? '');
+        $qb->sort = ($params['sort'] ?? 1);
         $qb->state = $params['state'];
 
         return $qb->update();

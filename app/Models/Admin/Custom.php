@@ -63,10 +63,11 @@ class Custom extends Model
         if (empty($self)) {
             throw new \Exception('自定义数据不存在');
         }
-        !empty($params['name']) && $self->name = $params['name'];
-        !empty($params['picture']) && $self->picture = $params['picture'];
-        !empty($params['link']) && $self->link = $params['link'];
-        !empty($params['content']) && $self->content = $params['content'];
+
+        $self->name = ($params['name'] ?? '');
+        $self->picture = ($params['picture'] ?? '');
+        $self->link = ($params['link'] ?? '');
+        $self->content = ($params['content'] ?? '');
         $self->state = $params['state'];
 
         return $self->update();

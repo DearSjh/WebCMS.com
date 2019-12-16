@@ -23,11 +23,11 @@ class KeywordConfig extends Model
         if (empty($qb)) {
             $qb = new self();
         }
-        !empty($params['main']) && $qb->main = $params['main'];
-        !empty($params['region']) && $qb->region = $params['region'];
-        !empty($params['prefix']) && $qb->prefix = $params['prefix'];
-        !empty($params['suffix']) && $qb->suffix = $params['suffix'];
 
+        $qb->main = ($params['main'] ?? '');
+        $qb->region = ($params['region'] ?? '');
+        $qb->prefix = ($params['prefix'] ?? '');
+        $qb->suffix = ($params['suffix'] ?? '');
         if ($qb->save()) {
             Keyword::addKeyword($params);
         };

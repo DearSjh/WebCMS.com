@@ -1,5 +1,4 @@
 <?php
-global $webInfo;
 $catId = GetCatId();
 
 
@@ -58,7 +57,14 @@ function GetSearchKey()
  */
 function WebInfo($param)
 {
-    return \App\Models\WebInfo::select($param)->first()[$param];
+    static $webInfo;
+    if (!empty($webInfo[$param])) {
+        return $webInfo[$param];
+    }
+
+    $webInfo = \App\Models\WebInfo::select($param)->first();
+
+    return $webInfo[$param];
 }
 
 
@@ -297,12 +303,20 @@ function ArticleList($catId, $num = 10, $sort = 1, $field = 'id')
  */
 function PrevTile($catId = '')
 {
+    static $info;
+    if (!empty($info)) {
+        return $info;
+    }
     $id = GetArticleId();
     if ($catId == '') {
         $catId = GetCatId();
     }
     $ret = \App\Models\Article::prevTile($catId, $id);
-    $info = ['id' => $ret['id'] . '.html', 'title' => $ret['title']];
+    if (empty($ret['id'])) {
+        $ret['id'] = '#';
+        $ret['title'] = '没有了';
+    }
+    $info = ['link' => $ret['id'] . '.html', 'title' => $ret['title']];
     return $info;
 }
 
@@ -313,12 +327,21 @@ function PrevTile($catId = '')
  */
 function NextTile($catId = '')
 {
+    static $info;
+    if (!empty($info)) {
+        return $info;
+    }
     $id = GetArticleId();
     if ($catId == '') {
         $catId = GetCatId();
     }
     $ret = \App\Models\Article::nextTile($catId, $id);
-    return ['id' => $ret['id'] . '.html', 'title' => $ret['title']];
+    if (empty($ret['id'])) {
+        $ret['id'] = '#';
+        $ret['title'] = '没有了';
+    }
+    $info = ['link' => $ret['id'] . '.html', 'title' => $ret['title']];
+    return $info;
 }
 
 /**
@@ -362,6 +385,11 @@ function GetCustomData($key)
 function Position()
 {
 
+    static $arr;
+    if(!empty($arr)){
+        return $arr;
+    }
+
     $qb = \App\Models\Category::getSubCatByPath(\App\Service\Utils::getPath());
 
     $arr = [];
@@ -384,9 +412,3 @@ function Lang()
 {
     return \App\Models\Language::select(['id', 'name', 'pic'])->where('state', 1)->get();
 }
-
-
-
-
-
-

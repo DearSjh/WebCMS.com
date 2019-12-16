@@ -57,11 +57,11 @@ class FriendLink extends Model
             throw new \Exception('链接不存在，请先添加');
         }
 
-        !empty($params['name']) && $qb->name = $params['name'];
-        !empty($params['note']) && $qb->note = $params['note'];
-        !empty($params['link']) && $qb->link = $params['link'];
-        !empty($params['picture']) && $qb->picture = $params['picture'];
-        !empty($params['sort']) && $qb->sort = $params['sort'];
+        $qb->name = ($params['name'] ?? '');
+        $qb->note = ($params['note'] ?? '');
+        $qb->link = ($params['link'] ?? '');
+        $qb->picture = ($params['picture'] ?? '');
+        $qb->sort = ($params['sort'] ?? 1);
         $qb->state = $params['state'];
 
         return $qb->update();

@@ -15,8 +15,10 @@ use App\Models\Admin\WebInfo;
 use App\Models\Admin\Language;
 use App\Models\Admin\Email;
 use App\Http\Requests\Admin\WebInfo\ChekLanguage;
+use App\Http\Requests\Admin\WebInfo\UpdateWebInfo;
 use App\Http\Resources\Admin\Language\LanguageListCollection;
 use App\Http\Resources\Admin\Language\LanguageValueListCollection;
+use Illuminate\Support\Facades\Cache;
 
 class WebInfoController extends Controller
 {
@@ -29,7 +31,6 @@ class WebInfoController extends Controller
     public function basic(Request $request)
     {
         if ($request->isMethod('get')) {
-
             $webInfo = WebInfo::select('*')->first();
             if (!empty($webInfo)) {
                 $this->setData($webInfo);
@@ -37,9 +38,17 @@ class WebInfoController extends Controller
 
             return $this->responseJSON();
         } else {
+            $this->validate($request, UpdateWebInfo::rules(), UpdateWebInfo::msg(), UpdateWebInfo::attr());
             $date = WebInfo::updateWebInfo($request->input());
             if ($date) {
                 $this->setMsg(200, '操作成功');
+
+                if ($request->input('web_cache')) {
+                    Cache::forever('open_web_cache', true);
+                } else {
+                    Cache::forever('open_web_cache', false);
+                }
+
             } else {
                 $this->setMsg(400, '操作失败');
             }

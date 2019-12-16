@@ -36,6 +36,7 @@ class Article extends Model
     {
         return Article::select(['id', 'title'])->where('id', '<', $id)
             ->where(['category_id' => $catId, 'state' => '1'])
+            ->orderBy('id', 'DESC')
             ->first();
     }
 
@@ -43,6 +44,7 @@ class Article extends Model
     {
         return Article::select(['id', 'title'])->where('id', '>', $id)
             ->where(['category_id' => $catId, 'state' => '1'])
+            ->orderBy('id', 'ASC')
             ->first();
     }
 
@@ -53,7 +55,7 @@ class Article extends Model
 
         $sort = ($sort == 1 ? 'DESC' : 'ASC');
 
-        $qb = Article::select(['id', 'category_id', 'title', 'main_pic']);
+        $qb = Article::select(['id', 'category_id', 'title', 'main_pic', 'created_at']);
         $qb->with('category.parent.parent');
         !empty($ids) && $qb->whereIn('category_id', $ids);
         !empty($tag) && $qb->where($tag, 1);
@@ -73,7 +75,7 @@ class Article extends Model
         $ids = Article::processCatId($catId);
 
         $sort = ($sort == 1 ? 'DESC' : 'ASC');
-        $qb = Article::select(['id', 'category_id', 'title', 'main_pic', 'abstract', 'content']);
+        $qb = Article::select(['id', 'category_id', 'title', 'main_pic', 'abstract', 'content', 'created_at']);
         $qb->with('category.parent.parent');
         !empty($search) && $qb->where('title', $search);
         !empty($ids) && $qb->whereIn('category_id', $ids);
@@ -121,6 +123,7 @@ class Article extends Model
                 'main_pic' => $value->main_pic,
                 'abstract' => $value->abstract,
                 'content' => $value->content,
+                'created_at' => $value->created_at,
                 'link' => $path . $value->id . '.html',
             ];
         }

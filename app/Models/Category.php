@@ -54,7 +54,7 @@ class Category extends Model
             ->with('child.child.child')
             ->where('state', 1)
             ->where('parent_id', 0)
-            ->orderBy('sort', 'DESC')
+            ->orderBy('sort', 'ASC')
             ->get();
     }
 
@@ -65,7 +65,7 @@ class Category extends Model
             ->with('child.child')
             ->where('state', 1)
             ->where('parent_id', $parentId)
-            ->orderBy('sort', 'DESC')
+            ->orderBy('sort', 'ASC')
             ->get();
     }
 

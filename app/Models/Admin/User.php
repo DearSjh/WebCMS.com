@@ -21,7 +21,7 @@ class User extends Model
      */
     public function userRole()
     {
-        return $this->belongsToMany(Role::class,'user_roles', 'user_id', 'role_id','id')->select('id','name');
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id', 'id')->select('id', 'name');
     }
 
     public static function checkInfo($params, $id = '')
@@ -56,8 +56,9 @@ class User extends Model
             throw new \Exception('用户不存在，请先添加');
         }
 
-        !empty($params['user_name']) && $qb->user_name = $params['user_name'];
-        !empty($params['password']) && $qb->password = password_hash($params['password'], PASSWORD_DEFAULT);
+
+        $qb->user_name = ($params['user_name'] ?? '');
+        $qb->password = ($params['password'] ? password_hash($params['password'], PASSWORD_DEFAULT) : '');
         $qb->state = $params['state'];
 
         return $qb->update();
@@ -66,7 +67,7 @@ class User extends Model
 
     public static function userList($params, $parPage = PER_PAGE, $page = FIRST_PAGE)
     {
-        $qb = self::with('userRole')->select(['id','user_name','state', 'created_at']);
+        $qb = self::with('userRole')->select(['id', 'user_name', 'state', 'created_at']);
 
         !empty($params['user_name']) && !empty($params['user_name']) && $qb->where('user_name', $params['user_name']);
         !empty($params['begin_time']) && $qb->where('created_at', '>=', $params['begin_time']);

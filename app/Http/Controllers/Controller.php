@@ -51,16 +51,15 @@ class Controller extends BaseController
 
     /**
      * @param $view
-     * @param bool $flag
      * @return \Illuminate\View\View|mixed|string
      * @throws \Throwable
      */
-    public function view($view, $flag = false)
+    public function view($view)
     {
 
         $key = Input::path();
 
-        if ($flag) {
+        if (Cache::get('open_web_cache') == true) {
             $rep = Cache::get($key);
             if (empty($rep)) {
                 $rep = view('web.' . $view)->__toString();

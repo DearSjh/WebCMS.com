@@ -64,8 +64,6 @@ class CategoryResource extends JsonResource
             $type = '单页';
         } elseif ($value == 2) {
             $type = '列表';
-        } elseif ($value == 3) {
-            $type = '商品';
         } else {
             $type = $value;
         }

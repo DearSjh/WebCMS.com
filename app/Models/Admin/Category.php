@@ -92,16 +92,16 @@ class Category extends Model
         if (empty($qb)) {
             throw new \Exception('所属栏目不存在，请先添加');
         }
-        !empty($params['type']) && $qb->type = $params['type'];
-        !empty($params['parent_id']) && $qb->parent_id = $params['parent_id'];
-        !empty($params['name']) && $qb->name = $params['name'];
-        !empty($params['eng_name']) && $qb->eng_name = $params['eng_name'];
-        !empty($params['dir_name']) && $qb->dir_name = $params['dir_name'];
-        !empty($params['link']) && $qb->link = $params['link'];
-        !empty($params['picture']) && $qb->picture = $params['picture'];
-        !empty($params['seo_title']) && $qb->seo_title = $params['seo_title'];
-        !empty($params['keyword']) && $qb->keyword = $params['keyword'];
-        !empty($params['sort']) && $qb->sort = $params['sort'];
+        $qb->type = ($params['type'] ?? 1);
+        $qb->parent_id = ($params['parent_id'] ?? 0);
+        $qb->name = ($params['name'] ?? '');
+        $qb->eng_name = ($params['eng_name'] ?? '');
+        $qb->dir_name = ($params['dir_name'] ?? '');
+        $qb->link = ($params['link'] ?? '');
+        $qb->picture = ($params['picture'] ?? '');
+        $qb->seo_title = ($params['seo_title'] ?? '');
+        $qb->keyword = ($params['keyword'] ?? '');
+        $qb->sort = ($params['sort'] ?? 1);
         $qb->state = $params['state'];
 
         return $qb->update();
@@ -117,6 +117,7 @@ class Category extends Model
         !empty($params['begin_time']) && $qb->where('created_at', '>=', $params['begin_time']);
         !empty($params['end_time']) && $qb->where('created_at', '<=', $params['end_time']);
 
+        $qb->orderBy('sort');
         return $qb->paginate($parPage, ['*'], 'page', $page);
     }
 

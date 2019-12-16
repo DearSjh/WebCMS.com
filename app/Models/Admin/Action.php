@@ -62,9 +62,9 @@ class Action extends Model
             throw new \Exception('该权限不存在，请先添加');
         }
 
-        !empty($params['name']) && $qb->name = $params['name'];
-        !empty($params['parent_id']) && $qb->parent_id = $params['parent_id'];
-        !empty($params['url']) && $qb->url = $params['url'];
+        $qb->name = ($params['name'] ?? '');
+        $qb->parent_id = ($params['parent_id'] ?? 0);
+        $qb->url = ($params['url'] ?? '');
 
         return $qb->update();
     }

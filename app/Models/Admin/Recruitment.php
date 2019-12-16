@@ -54,19 +54,20 @@ class Recruitment extends Model
         if (empty($self)) {
             throw new \Exception('招聘信息不存在，请先添加');
         }
-        !empty($params['name']) && $self->name = $params['name'];
-        !empty($params['place']) && $self->place = $params['place'];
-        !empty($params['nature']) && $self->nature = $params['nature'];
-        !empty($params['number']) && $self->number = $params['number'];
-        !empty($params['gender']) && $self->gender = $params['gender'];
-        !empty($params['wages']) && $self->wages = $params['wages'];
-        !empty($params['effective']) && $self->effective = $params['effective'];
-        !empty($params['experience']) && $self->experience = $params['experience'];
-        !empty($params['degree']) && $self->degree = $params['degree'];
-        !empty($params['language']) && $self->language = $params['language'];
-        !empty($params['description']) && $self->description = $params['description'];
-        !empty($params['requirements']) && $self->requirements = $params['requirements'];
-        !empty($params['sort']) && $self->sort = $params['sort'];
+
+        $self->name = ($params['name'] ?? '');
+        $self->place = ($params['place'] ?? '');
+        $self->nature = ($params['nature'] ?? '');
+        $self->number = ($params['number'] ?? '');
+        $self->gender = ($params['gender'] ?? '');
+        $self->wages = ($params['wages'] ?? '');
+        $self->effective = ($params['effective'] ?? '');
+        $self->experience = ($params['experience'] ?? '');
+        $self->degree = ($params['degree'] ?? '');
+        $self->language = ($params['language'] ?? '');
+        $self->description = ($params['description'] ?? '');
+        $self->requirements = ($params['requirements'] ?? '');
+        $self->sort = ($params['sort'] ?? 1);
         $self->state = $params['state'];
 
         return $self->update();

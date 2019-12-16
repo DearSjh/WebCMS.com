@@ -11,6 +11,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Service\Utils;
+use App\Models\Admin\WebInfo;
+use Illuminate\Support\Facades\Cache;
 
 class CacheController extends Controller
 {
@@ -21,8 +23,18 @@ class CacheController extends Controller
     public function del()
     {
 
-        Utils::delDir('../storage/framework/views/');
+        Utils::delDir('../storage/framework/cache/');
 
+        $webInfo = WebInfo::select('web_cache')->first();
+        if (!empty($webInfo)) {
+            if ($webInfo->web_cache) {
+                Cache::forever('open_web_cache', true);
+            } else {
+                Cache::forever('open_web_cache', false);
+            }
+
+        }
         return $this->responseJSON();
+
     }
 }

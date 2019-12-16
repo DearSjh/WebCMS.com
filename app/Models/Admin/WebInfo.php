@@ -25,20 +25,22 @@ class WebInfo extends Model
         if (empty($qb)) {
             $qb = new self();
         }
-        !empty($params['logo']) && $qb->logo = $params['logo'];
-        !empty($params['url']) && $qb->url = $params['url'];
-        !empty($params['seo_title']) && $qb->seo_title = $params['seo_title'];
-        !empty($params['keyword']) && $qb->keyword = $params['keyword'];
-        !empty($params['describe']) && $qb->describe = $params['describe'];
-        !empty($params['copyright']) && $qb->copyright = $params['copyright'];
-        !empty($params['hotline']) && $qb->hotline = $params['hotline'];
-        !empty($params['record']) && $qb->record = $params['record'];
-        !empty($params['traffic_statistics']) && $qb->traffic_statistics = $params['traffic_statistics'];
-        !empty($params['online_qq']) && $qb->online_qq = $params['online_qq'];
-        !empty($params['contact']) && $qb->contact = $params['contact'];
-        !empty($params['email']) && $qb->email = $params['email'];
-        !empty($params['phone']) && $qb->phone = $params['phone'];
-        !empty($params['address']) && $qb->address = $params['address'];
+        $qb->logo = ($params['logo'] ?? '');
+        $qb->url = ($params['url'] ?? '');
+        $qb->seo_title = ($params['seo_title'] ?? '');
+        $qb->keyword = ($params['keyword'] ?? '');
+        $qb->describe = ($params['describe'] ?? '');
+        $qb->copyright = ($params['copyright'] ?? '');
+        $qb->hotline = ($params['hotline'] ?? '');
+        $qb->record = ($params['record'] ?? '');
+        $qb->traffic_statistics = ($params['traffic_statistics'] ?? '');
+        $qb->online_qq = ($params['online_qq'] ?? '');
+        $qb->contact = ($params['contact'] ?? '');
+        $qb->email = ($params['email'] ?? '');
+        $qb->phone = ($params['phone'] ?? '');
+        $qb->address = ($params['address'] ?? '');
+        $qb->web_cache = $params['web_cache'];
+
         $qb->save();
         return $qb;
 

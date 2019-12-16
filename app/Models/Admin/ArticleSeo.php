@@ -31,11 +31,11 @@ class ArticleSeo extends Model
             throw new \Exception('文章不存在，请先添加文章');
         }
 
-        !empty($params['article_id']) && $qb->article_id = $articleId;
-        !empty($params['seo_tag']) && $qb->seo_tag = $params['seo_tag'];
-        !empty($params['seo_title']) && $qb->seo_title = $params['seo_title'];
-        !empty($params['seo_key']) && $qb->seo_key = $params['seo_key'];
-        !empty($params['seo_desc']) && $qb->seo_desc = $params['seo_desc'];
+        $qb->article_id = $articleId;
+        $qb->seo_tag = ($params['seo_tag'] ?? '');
+        $qb->seo_title = ($params['seo_title'] ?? '');
+        $qb->seo_key = ($params['seo_key'] ?? '');
+        $qb->seo_desc = ($params['seo_desc'] ?? '');
 
         return $qb->save();
     }

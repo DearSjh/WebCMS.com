@@ -60,9 +60,8 @@ class Role extends Model
             throw new \Exception('该角色不存在，请先添加');
         }
 
-        !empty($params['name']) && $qb->name = $params['name'];
-        !empty($params['desc']) && $qb->desc = $params['desc'];
-
+        $qb->name = ($params['name'] ?? '');
+        $qb->desc = ($params['desc'] ?? '');
         return $qb->update();
     }
 

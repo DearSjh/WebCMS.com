@@ -26,13 +26,12 @@ class Email extends Model
         if (empty($qb)) {
             $qb = new self();
         }
-        !empty($params['title']) && $qb->title = $params['title'];
-        !empty($params['smtp_server']) && $qb->smtp_server = $params['smtp_server'];
-        !empty($params['smtp_port']) && $qb->smtp_port = $params['smtp_port'];
-        !empty($params['account']) && $qb->account = $params['account'];
-        !empty($params['code']) && $qb->code = $params['code'];
-        !empty($params['to_email']) && $qb->to_email = $params['to_email'];
-
+        $qb->title = ($params['title'] ?? '');
+        $qb->smtp_server = ($params['smtp_server'] ?? '');
+        $qb->smtp_port = ($params['smtp_port'] ?? '');
+        $qb->account = ($params['account'] ?? '');
+        $qb->code = ($params['code'] ?? '');
+        $qb->to_email = ($params['to_email'] ?? '');
         $qb->save();
         return $qb;
 

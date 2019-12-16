@@ -70,6 +70,7 @@ class Articles extends Model
         !empty($params['sort']) && $self->sort = $params['sort'];
         !empty($params['visits']) && $self->visits = $params['visits'];
         !empty($params['content']) && $self->content = $params['content'];
+        !empty($params['file_path']) && $self->file_path = $params['file_path'];
         $self->top = $params['top'];
         $self->recommended = $params['recommended'];
         $self->rolling = $params['rolling'];
@@ -106,15 +107,15 @@ class Articles extends Model
         if (is_array($params['group_pic'])) {
             $self->group_pic = implode(',', $params['group_pic']);
         }
-        !empty($params['title']) && $self->title = $params['title'];
-        !empty($params['main_pic']) && $self->main_pic = $params['main_pic'];
-        !empty($params['link']) && $self->link = $params['link'];
-        !empty($params['keyword']) && $self->keyword = $params['keyword'];
-        !empty($params['abstract']) && $self->abstract = $params['abstract'];
-        !empty($params['sort']) && $self->sort = $params['sort'];
-        !empty($params['visits']) && $self->visits = $params['visits'];
-        !empty($params['content']) && $self->content = $params['content'];
-
+        $self->title = ($params['title'] ?? '');
+        $self->main_pic = ($params['main_pic'] ?? '');
+        $self->link = ($params['link'] ?? '');
+        $self->keyword = ($params['keyword'] ?? '');
+        $self->abstract = ($params['abstract'] ?? '');
+        $self->sort = ($params['sort'] ?? 0);
+        $self->visits = ($params['visits'] ?? '');
+        $self->content = ($params['content'] ?? '');
+        $self->file_path = ($params['file_path'] ?? '');
         $self->top = $params['top'];
         $self->recommended = $params['recommended'];
         $self->rolling = $params['rolling'];
