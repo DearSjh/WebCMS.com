@@ -71,6 +71,7 @@ class Articles extends Model
         !empty($params['visits']) && $self->visits = $params['visits'];
         !empty($params['content']) && $self->content = $params['content'];
         !empty($params['file_path']) && $self->file_path = $params['file_path'];
+        !empty($params['release_time']) && $self->release_time = $params['release_time'];
         $self->top = $params['top'];
         $self->recommended = $params['recommended'];
         $self->rolling = $params['rolling'];
@@ -116,6 +117,7 @@ class Articles extends Model
         $self->visits = ($params['visits'] ?? '');
         $self->content = ($params['content'] ?? '');
         $self->file_path = ($params['file_path'] ?? '');
+        $self->release_time = ($params['release_time'] ?? '');
         $self->top = $params['top'];
         $self->recommended = $params['recommended'];
         $self->rolling = $params['rolling'];
@@ -151,8 +153,11 @@ class Articles extends Model
     public static function detail($id)
     {
         $result = Articles::where(['id' => $id])->first();
-        if ($result->group_pic) {
+
+        if (!empty($result->group_pic)) {
             $result->group_pic = explode(',', $result->group_pic);
+        } else {
+            $result->group_pic = [];
         }
 
         return $result;

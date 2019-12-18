@@ -12,8 +12,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\KeywordConfig;
-use App\Models\Admin\KeywordRanking;
-use App\Http\Resources\Admin\KeywordRanking\KeywordRankingListCollection;
+use App\Service\Utils;
+use GuzzleHttp\Client;
 
 class KeywordController extends Controller
 {
@@ -26,15 +26,15 @@ class KeywordController extends Controller
     public function keywordRankingList(Request $request)
     {
         $conditions = $request->all();
-        $page = $request->input('page', 0);
-        $perPage = $request->input('perPage', 15);
+        $conditions['id'] = RANKING_SECRET_ID;
+        $conditions['time'] = time();
+        $conditions['sign'] = Utils::rankingSign($conditions);
+        $client = new Client();
+        $res = $client->request('POST', 'http://ranking.lin-ju-le.com/ranking', ['form_params' => $conditions]);
+        $body = $res->getBody();
+        $remainingBytes = $body->getContents();
 
-        $list = KeywordRanking::keywordRankingList($conditions, $perPage, $page);
-        if (!empty($list)) {
-            $this->setData(new KeywordRankingListCollection($list));
-        }
-
-        return $this->responseJSON();
+        return json_decode($remainingBytes, true);
     }
 
     public function edit(Request $request)

@@ -110,4 +110,6 @@ class WebInfoController extends Controller
         }
         return $this->responseJSON();
     }
+
+
 }

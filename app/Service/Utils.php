@@ -320,4 +320,13 @@ class Utils
         $data['city'] = json_decode($ipInfo, true)['data']['city'] ?? '';
         return $data;
     }
+
+    public static function rankingSign($arr, $secretKey = RANKING_SECRET_KEY)
+    {
+        ksort($arr);
+
+        $str = implode('&', $arr);
+        return md5(md5($str) . $secretKey);
+
+    }
 }

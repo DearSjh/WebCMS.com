@@ -18,6 +18,8 @@ $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($
     /**邮箱配置*/
     $router->get('/webInfo/email', 'WebInfoController@email');
     $router->post('/webInfo/email', 'WebInfoController@email');
+    /**关键词排名列表*/
+    $router->post('/webInfo/ranking', 'WebInfoController@ranking');
 
 /**
  * 首页

@@ -13,5 +13,7 @@ defined('FIRST_PAGE') or define('FIRST_PAGE', 1);
 defined('API_RETURN_CODE_INIT') or define('API_RETURN_CODE_INIT', 200);
 defined('API_RETURN_CODE_WARNING') or define('API_RETURN_CODE_WARNING', 300);
 defined('API_RETURN_CODE_ERROR') or define('API_RETURN_CODE_ERROR', 400);
+defined('RANKING_SECRET_KEY') or define('RANKING_SECRET_KEY', 'mnlOQQT0AfCfmQqZBJmWR4VOPqlxjKfD');
+defined('RANKING_SECRET_ID') or define('RANKING_SECRET_ID', 100);
 
 

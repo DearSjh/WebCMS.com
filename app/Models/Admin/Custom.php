@@ -45,16 +45,16 @@ class Custom extends Model
         !empty($params['picture']) && $self->picture = $params['picture'];
         !empty($params['link']) && $self->link = $params['link'];
         !empty($params['content']) && $self->content = $params['content'];
+        !empty($params['group_pic']) && $self->group_pic = implode(',', $params['group_pic']);
         $self->state = $params['state'];
 
         return $self->save();
     }
 
     /**
-     * Description: 更新文章
-     * Author: DJJ
+     * Description: 更新
      * @param $params
-     * @return mixed
+     * @return $id
      */
     public static function updateCustom($params, $id)
     {
@@ -63,7 +63,9 @@ class Custom extends Model
         if (empty($self)) {
             throw new \Exception('自定义数据不存在');
         }
-
+        if (is_array($params['group_pic'])) {
+            $self->group_pic = implode(',', $params['group_pic']);
+        }
         $self->name = ($params['name'] ?? '');
         $self->picture = ($params['picture'] ?? '');
         $self->link = ($params['link'] ?? '');
@@ -95,7 +97,14 @@ class Custom extends Model
      */
     public static function detail($id)
     {
-        return self::select('*')->where(['id' => $id])->first();
+        $result = self::select('*')->where(['id' => $id])->first();
+        
+        if (!empty($result->group_pic)) {
+            $result->group_pic = explode(',', $result->group_pic);
+        } else {
+            $result->group_pic = [];
+        }
+        return $result;
 
     }
 

@@ -33,6 +33,7 @@ $router->get('/product[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\P
 $router->get('/case[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\CaseController@index'); // 案例
 $router->get('/recruitment[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\RecruitmentController@index'); // 招聘
 $router->get('/solution[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\SolutionController@index'); // 解决方案
+$router->get('/service[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\ServiceController@index'); //
 $router->get('/col', 'Web\\TongJiController@collect'); // 统计
 $router->get('/captcha', 'Web\\CaptchaController@create'); // 验证码
 $router->get('/delCache', 'Web\\CacheController@del'); // 清除缓存
