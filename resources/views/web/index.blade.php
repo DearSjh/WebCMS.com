@@ -7,12 +7,14 @@
     <div class="swiper-container">
 
         <div class="swiper-wrapper">
-            <div class="swiper-slide" style="margin-right: 0px!important;">
-                <a title="通祐视觉" href="product/569.html" target="_blank">
-                    <img src="http://www.koyoai.com/data/images/slide/20191015114726_574.jpg" alt="通祐视觉"/>
+            @foreach(Banner() as $banner)
+                <div class="swiper-slide" style="margin-right: 0px!important;">
+                    <a title="通祐视觉" href="{{ $banner['link'] }}" target="_blank">
+                        <img src="{{ $banner['picture'] }}" alt="通祐视觉"/>
+                    </a>
+                </div>
+            @endforeach
 
-                </a>
-            </div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination" style="display:none;"></div>
@@ -29,6 +31,7 @@
             width: 100%;
             height: 100%;
         }
+
         .swiper-slide {
             text-align: center;
             font-size: 18px;
@@ -48,13 +51,16 @@
             -webkit-align-items: center;
             align-items: center;
         }
-        .swiper-slide img{
+
+        .swiper-slide img {
             width: 100%;
         }
-        .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
-            bottom:102px;
+
+        .swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+            bottom: 102px;
         }
-        .swiper-pagination-bullet{
+
+        .swiper-pagination-bullet {
             width: 56px;
             line-height: 4px;
             height: 4px;
@@ -62,11 +68,13 @@
             background: #fff;
             opacity: .6;
         }
-        .swiper-pagination-bullet-active{
+
+        .swiper-pagination-bullet-active {
             opacity: 1;
         }
-        .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{
-            margin:0px 6px;
+
+        .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+            margin: 0px 6px;
         }
     </style>
 
@@ -80,46 +88,25 @@
         </div>
         <div class="tab2li container">
             <ul class="clearfix">
-                <li >
-                    <a href="http://www.koyoai.com/product/569.html">
-                        <img src="http://www.koyoai.com/data/images/slide/20190315085720_337.png">
-                        <p>E30</p></a>
-                </li>
-                <li >
-                    <a href="http://www.koyoai.com/p/product3.html">
-                        <img src="http://www.koyoai.com/data/images/slide/20190315085756_840.png">
-                        <p>环形平角无影光源</p></a>
-                </li>
-                <li >
-                    <a href="http://www.koyoai.com/p/product2.html">
-                        <img src="http://www.koyoai.com/data/images/slide/20190315085843_643.png">
-                        <p>高均匀条形光源</p></a>
-                </li>
-                <li >
-                    <a href="http://www.koyoai.com/p/product4.html">
-                        <img src="http://www.koyoai.com/data/images/slide/20190315085944_154.png">
-                        <p>光源恒流控制器</p></a>
-                </li>
-                <li >
-                    <a href="http://www.koyoai.com/p/product6.html">
-                        <img src="http://www.koyoai.com/data/images/slide/20190328142453_502.png">
-                        <p>警报灯控制器</p></a>
-                </li>
-                <li >
-                    <a href="http://www.koyoai.com/p/product5.html">
-                        <img src="http://www.koyoai.com/data/images/slide/20190328142510_837.png">
-                        <p>警报灯</p></a>
-                </li>
+
+                @foreach(ArticleList(7, 6) as $list)
+                    <li>
+                        <a href="{{ $list['link'] }}">
+                            <img src="{{ $list['main_pic'] }}">
+                            <p>{{ $list['title'] }}</p></a>
+                    </li>
+                @endforeach
             </ul>
         </div>
 
         <div class="tab2s clearfix">
 
             <div class="tab2 container clearfix">
-                <div class="tabimg bounceInleft1" >
-                    <a href="http://www.koyoai.com/product/569.html"><img src="http://www.koyoai.com/template/default/images/show_product.png"></a>
+                <div class="tabimg bounceInleft1">
+                    <a href="http://www.koyoai.com/product/569.html"><img
+                                src="http://www.koyoai.com/template/default/images/show_product.png"></a>
                 </div>
-                <div class="text1 bounceInRight1" >
+                <div class="text1 bounceInRight1">
                     <div class="line1"></div>
                     <h3>E30 <p>KY-MV-EVS系列</p></h3>
 
@@ -143,17 +130,18 @@
                     </div>
 
                     <div class="more1 clearfix">
-                        <a href="http://www.koyoai.com/product/569.html">产品详情  +</a>
-                        <a href="http://www.koyoai.com/product/569.html#fw">应用范围  +</a>
+                        <a href="http://www.koyoai.com/product/569.html">产品详情 +</a>
+                        <a href="http://www.koyoai.com/product/569.html#fw">应用范围 +</a>
                     </div>
                 </div>
             </div>
 
             <div class="tab2 container clearfix" style="display:none;">
-                <div class="tabimg bounceInleft1" >
-                    <a href="http://www.koyoai.com/p/product3.html"><img src="http://www.koyoai.com/template/default/images/product4.png"></a>
+                <div class="tabimg bounceInleft1">
+                    <a href="http://www.koyoai.com/p/product3.html"><img
+                                src="http://www.koyoai.com/template/default/images/product4.png"></a>
                 </div>
-                <div class="text1 bounceInRight1" >
+                <div class="text1 bounceInRight1">
                     <div class="line1"></div>
                     <h3>环形平角无影光源 <p>美好生活的承担者 </p></h3>
 
@@ -177,17 +165,18 @@
                     </div>
 
                     <div class="more1 clearfix">
-                        <a href="http://www.koyoai.com/p/product3.html">产品详情  +</a>
-                        <a href="http://www.koyoai.com/product/569.html#fw">应用范围  +</a>
+                        <a href="http://www.koyoai.com/p/product3.html">产品详情 +</a>
+                        <a href="http://www.koyoai.com/product/569.html#fw">应用范围 +</a>
                     </div>
                 </div>
             </div>
 
             <div class="tab2 container clearfix" style="display:none;">
-                <div class="tabimg bounceInleft1" >
-                    <a href="http://www.koyoai.com/p/product2.html"><img src="http://www.koyoai.com/template/default/images/product3.png"></a>
+                <div class="tabimg bounceInleft1">
+                    <a href="http://www.koyoai.com/p/product2.html"><img
+                                src="http://www.koyoai.com/template/default/images/product3.png"></a>
                 </div>
-                <div class="text1 bounceInRight1" >
+                <div class="text1 bounceInRight1">
                     <div class="line1"></div>
                     <h3>高均匀条形光源<p>美好生活的承担者</p></h3>
 
@@ -211,17 +200,18 @@
                     </div>
 
                     <div class="more1 clearfix">
-                        <a href="http://www.koyoai.com/p/product2.html">产品详情  +</a>
-                        <a href="http://www.koyoai.com/product/569.html#fw">应用范围  +</a>
+                        <a href="http://www.koyoai.com/p/product2.html">产品详情 +</a>
+                        <a href="http://www.koyoai.com/product/569.html#fw">应用范围 +</a>
                     </div>
                 </div>
             </div>
 
             <div class="tab2 container clearfix" style="display:none;">
-                <div class="tabimg bounceInleft1" >
-                    <a href="http://www.koyoai.com/p/product4.html"><img src="http://www.koyoai.com/template/default/images/product5.png"></a>
+                <div class="tabimg bounceInleft1">
+                    <a href="http://www.koyoai.com/p/product4.html"><img
+                                src="http://www.koyoai.com/template/default/images/product5.png"></a>
                 </div>
-                <div class="text1 bounceInRight1" >
+                <div class="text1 bounceInRight1">
                     <div class="line1"></div>
                     <h3>光源恒流控制器<p>美好生活的承担者</p></h3>
 
@@ -245,8 +235,8 @@
                     </div>
 
                     <div class="more1 clearfix">
-                        <a href="http://www.koyoai.com/p/product4.html">产品详情  +</a>
-                        <a href="http://www.koyoai.com/product/569.html#fw">应用范围  +</a>
+                        <a href="http://www.koyoai.com/p/product4.html">产品详情 +</a>
+                        <a href="http://www.koyoai.com/product/569.html#fw">应用范围 +</a>
                     </div>
                 </div>
             </div>
@@ -273,7 +263,7 @@
             <a href="about/" class="more2"><img src="http://www.koyoai.com/template/default/images/more1.jpg"></a>
         </div>
         <div class="container">
-            <p class="intro1 " >
+            <p class="intro1 ">
                 专注于机器视觉与人工智能技术及应用，帮助企业提高产品质量管控，降低制造成本，提高生产效率，助力企业实现“工业4.0”。
             </p>
         </div>
@@ -282,16 +272,21 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="data/images/slide/20181226163447_911.jpg" alt="公司简介" class="img1" style="display:none;"/>
-                            <img src="http://www.koyoai.com/data/images/slide/20181225102158_284.jpg" alt="公司简介"  class="img1"/>
+                            <img src="data/images/slide/20181226163447_911.jpg" alt="公司简介" class="img1"
+                                 style="display:none;"/>
+                            <img src="http://www.koyoai.com/data/images/slide/20181225102158_284.jpg" alt="公司简介"
+                                 class="img1"/>
                         </div>
                         <div class="swiper-slide">
-                            <img src="data/images/slide/20181226163456_318.jpg" alt="公司简介" class="img1" style="display:none;"/>
-                            <img src="http://www.koyoai.com/data/images/slide/20190125095956_539.jpg" alt="公司简介"  class="img1"/>
+                            <img src="data/images/slide/20181226163456_318.jpg" alt="公司简介" class="img1"
+                                 style="display:none;"/>
+                            <img src="http://www.koyoai.com/data/images/slide/20190125095956_539.jpg" alt="公司简介"
+                                 class="img1"/>
                         </div>
                         <div class="swiper-slide">
                             <img src="" alt="" class="img1" style="display:none;"/>
-                            <img src="http://www.koyoai.com/data/images/slide/20190125100051_834.jpg" alt=""  class="img1"/>
+                            <img src="http://www.koyoai.com/data/images/slide/20190125100051_834.jpg" alt=""
+                                 class="img1"/>
                         </div>
                     </div>
                     <!-- Add Pagination -->
@@ -302,8 +297,11 @@
                 <img src="http://www.koyoai.com/template/default/images/about1.jpg">
                 <div class="m2_text">
                     <h1>智能让检测如此简单</h1>
-                    <p>江苏通祐视觉科技有限公司成立于2018年，以机器视觉及人工智能为主要研究方向，专注于机器视觉与人工智能技术及应用，为工业自动化领域提供方便易用的视觉系统、视觉软件、视觉传感器设备以及相关技术方案。</p><p><br/></p><p>通祐视觉帮助企业提高产品质量管控，降低制造成本，提高生产效率，助力企业实现“工业4.0”。</p>
-                    <a href="p/about.html">公司简介  +</a>
+                    <p>
+                        江苏通祐视觉科技有限公司成立于2018年，以机器视觉及人工智能为主要研究方向，专注于机器视觉与人工智能技术及应用，为工业自动化领域提供方便易用的视觉系统、视觉软件、视觉传感器设备以及相关技术方案。</p>
+                    <p><br/></p>
+                    <p>通祐视觉帮助企业提高产品质量管控，降低制造成本，提高生产效率，助力企业实现“工业4.0”。</p>
+                    <a href="p/about.html">公司简介 +</a>
                 </div>
             </div>
         </div>
@@ -330,5 +328,19 @@
             </li>
         </ul>
     </div>
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+
+        });
+
+    </script>
 
 @endsection

@@ -52,10 +52,10 @@ class AdminAuthController extends Controller
 
         $key = $_COOKIE['captcha'] ?? '';
 
-//        if (app('captcha')->check($code, $key) === false) {
-//            $this->setMsg(-4, '验证码错误');
-//            return $this->responseJSON();
-//        }
+        if (app('captcha')->check($code, $key) === false) {
+            $this->setMsg(-4, '验证码错误');
+            return $this->responseJSON();
+        }
 
         $adminAdmin = Admin::where(['user_name' => $userName])->first();
 

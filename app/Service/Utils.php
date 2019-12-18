@@ -221,26 +221,22 @@ class Utils
         if (!empty($list)) {
             foreach ($list as $k1 => $l1) {
 
-                $link = !empty($l1['link']) ? $l1['link'] : $path . '/' . $l1['dir_name'];
+                $link = !empty($l1['link']) ? $l1['link'] : "{$path}/{$l1['dir_name']}";
 
-                $arr[$k1] = ['id' => $l1['id'], 'link' => $link, 'name' => $l1['name']];
+                $arr[$k1] = ['id' => $l1['id'], 'link' => $link, 'name' => $l1['name'], 'picture' => $l1['picture']];
+                $arr[$k1]['child'] = [];
+                foreach ($l1['child'] as $k2 => $l2) {
 
-                if (!empty($l1['child'])) {
-                    foreach ($l1['child'] as $k2 => $l2) {
+                    $link = !empty($l2['link']) ? $l2['link'] : "{$path}/{$l1['dir_name']}/{$l2['dir_name']}";
+                    $arr[$k1]['child'][$k2] = ['id' => $l2['id'], 'link' => $link, 'name' => $l2['name'], 'picture' => $l2['picture']];
+                    $arr[$k1]['child'][$k2]['child'] = [];
+                    foreach ($l2['child'] as $k3 => $l3) {
 
-                        $link = !empty($l2['link']) ? $l2['link'] : '/' . $l1['dir_name'] . '/' . $l2['dir_name'];
-                        $arr[$k1]['child'][$k2] = ['id' => $l2['id'], 'link' => $link, 'name' => $l2['name']];
-
-                        if (!empty($l2['child'])) {
-                            foreach ($l2['child'] as $k3 => $l3) {
-
-                                $link = !empty($l3['link']) ? $l3['link'] : '/' . $l1['dir_name'] . '/' . $l2['dir_name'] . '/' . $l3['dir_name'];
-                                $arr[$k1]['child'][$k2]['child'][$k3] = ['id' => $l3['id'], 'link' => $link, 'name' => $l3['name']];
-
-                            }
-                        }
+                        $link = !empty($l3['link']) ? $l3['link'] : "{$path}/{$l1['dir_name']}/{$l2['dir_name']}/{$l3['dir_name']}";
+                        $arr[$k1]['child'][$k2]['child'][$k3] = ['id' => $l3['id'], 'link' => $link, 'name' => $l3['name'], 'picture' => $l3['picture']];
 
                     }
+
                 }
 
             }

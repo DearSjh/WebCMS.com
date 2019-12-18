@@ -22,21 +22,6 @@ class Category extends Model
 
     }
 
-    public static function getCatIdByPath($rPath)
-    {
-        return Category::select(['id'])->where('dir_name', $rPath)->first();
-    }
-
-    public static function getSubCatByPath($path)
-    {
-        return Category::select(['name', 'dir_name'])->whereIn('dir_name', $path)->get();
-    }
-
-    public static function getCatById($catId)
-    {
-        return Category::select(['type', 'name', 'eng_name', 'dir_name', 'picture', 'link'])->where('id', $catId)->first();
-    }
-
     public function child()
     {
         return $this->hasMany(Category::class, 'parent_id', 'id')
@@ -47,6 +32,34 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
     }
+
+    public static function getCatIdByPath($rPath)
+    {
+        return Category::select(['id'])->where('dir_name', $rPath)->first();
+    }
+
+    public static function getSubCatByPath($path)
+    {
+        return Category::select(['name', 'dir_name'])->whereIn('dir_name', $path)->get();
+    }
+
+    /**
+     * @param $catId
+     * @param $categories
+     * @return mixed
+     */
+    public static function getCatById($catId, &$categories)
+    {
+
+        $catInfo = Category::select(['id', 'parent_id', 'type', 'name', 'eng_name', 'dir_name', 'picture', 'link'])->where('id', $catId)->first();
+        array_push($categories, $catInfo);
+        if ($catInfo->parent_id != 0) {
+            Category::getCatById($catInfo->parent_id, $categories);
+        }
+
+        return 1;
+    }
+
 
     public static function lists()
     {

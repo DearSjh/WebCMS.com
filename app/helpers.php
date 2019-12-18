@@ -1,6 +1,10 @@
 <?php
 $catId = GetCatId();
 
+function CatLevel()
+{
+    return count(\App\Service\Utils::getPath());
+}
 
 /**
  * 获取类目ID
@@ -9,11 +13,19 @@ $catId = GetCatId();
 function GetCatId()
 {
     $pathArr = \App\Service\Utils::getPath();
+
+
     $rPath = array_pop($pathArr);
     if (ctype_digit($rPath)) {
         return $catId = $rPath;
     } else {
+
+        if (empty($rPath)) {
+            $rPath = '/';
+        }
+
         $ret = \App\Models\Category::getCatIdByPath($rPath);
+
         return $catId = $ret['id'];
     }
 }
@@ -170,6 +182,17 @@ function ArticleAll($catId = 0, $search = '', $perPage = 10, $sort = 1, $field =
     return $article['list'];
 }
 
+
+function Jobs($search = '', $perPage = 10)
+{
+    $pageNum = GetPageNum();
+    $jobs = \App\Models\Recruitment::search($search, $pageNum, $perPage);
+    global $page;
+
+    $page = $jobs['page'];
+    return $jobs['list'];
+}
+
 /**
  * 分页
  * @return mixed
@@ -182,29 +205,41 @@ function Page()
 
 /**
  * 获取栏目信息
- * @param $catId
+ * @param string $catId
+ * @param string $type top:顶级栏目，curr:当前栏目
  * @return mixed
  */
-function CatInfo($catId = '')
+function CatInfo($catId = '', $type = 'top')
 {
     if ($catId == '') {
         $catId = GetCatId();
     }
-    return \App\Models\Category::getCatById($catId);
+    $categories = [];
+    \App\Models\Category::getCatById($catId, $categories);
+
+    if ($type == 'top') {
+        return array_pop($categories);
+    }
+
+    if ($type = 'curr') {
+        return array_shift($categories);
+    }
+    return [];
 }
 
 
 /**
  * 获取文章内容
- * @param $catId
+ * @param int $catId
+ * @param bool $isSinglePage
  * @return mixed
  */
-function ArticleInfo($catId = 0)
+function ArticleInfo($catId = 0, $isSinglePage = false)
 {
     if ($catId == 0) {
         $catId = GetArticleId();
     }
-    $article = \App\Models\Article::getInfoByCatId($catId);
+    $article = \App\Models\Article::getInfoByCatId($catId, $isSinglePage);
     if (!empty($article->id)) {
         $article->visits = $article->visits + 1;
         $article->update();
@@ -370,12 +405,19 @@ function TimeConvert($time, $format = 'Y-m-d')
 
 /**
  * 获取自定义数据
- * @param  array $key
+ * @param  int $id
  * @return array
  * */
-function GetCustomData($key)
+function GetCustomData($id)
 {
-    return \App\Models\Custom::select(['name', 'picture', 'link', 'content'])->where('name', $key)->first();
+
+    static $data;
+    if (!empty($data[$id])) {
+        return $data[$id];
+    }
+
+    $data[$id] = \App\Models\Custom::select(['name', 'picture', 'group_pic', 'link', 'content'])->where('id', $id)->first();
+    return $data[$id];
 }
 
 /**
@@ -386,7 +428,7 @@ function Position()
 {
 
     static $arr;
-    if(!empty($arr)){
+    if (!empty($arr)) {
         return $arr;
     }
 
@@ -406,9 +448,19 @@ function Position()
 
 /**
  * 语言列表
+ * @param string $class
  * @return mixed
  */
-function Lang()
+function Lang($class = '')
 {
+    echo "<script> 
+        $(function() {
+          $('.{$class}').click(function() {
+            var lid = $(this).attr('id');
+            document.cookie = 'lang=' + lid;
+            window.location.reload()
+        });
+        
+}); </script>";
     return \App\Models\Language::select(['id', 'name', 'pic'])->where('state', 1)->get();
 }

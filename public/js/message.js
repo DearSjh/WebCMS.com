@@ -39,11 +39,11 @@ $(".msgbtn").click(function(){
 			content.focus();
 			return false;
 			break;
-		// case checkcode.val() == '':
-		// 	alert("验证码不能为空！");
-		// 	checkcode.focus();
-		// 	return false;
-		// 	break;
+		case checkcode.val() == '':
+			alert("验证码不能为空！");
+			checkcode.focus();
+			return false;
+			break;
 	}
 	//电话号码验证
     
@@ -76,6 +76,30 @@ $(".msgbtn").click(function(){
 	   return false;
     }
 
+    var formData = $('.message').serialize();
+
+    $.ajax({
+        type: 'post',
+        url: '/message',
+        cache: false,
+        data: formData,  //重点必须为一个变量如：data
+        dataType: 'json',
+        success: function (data) {
+            if(data.code !== 200){
+                alert(data.message);
+                return;
+            }else{
+                alert(data.message);
+            }
+
+            window.location.reload();
+
+        },
+        error: function () {
+            alert("请求失败")
+        }
+    })
+
 });
 //输入框获得焦点的时候，提示内容消失
 
@@ -97,3 +121,13 @@ $(".m_input").each(function(){
 	}
 });
 
+captcha();
+function captcha() {
+    $.getJSON('/captcha', function (data) {
+        $('#img').attr('src', data.data);
+    });
+}
+
+$('#img').click(function () {
+    captcha()
+});

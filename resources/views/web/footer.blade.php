@@ -38,6 +38,9 @@
 
     </ul>
 </div>
+
+
+
 <footer class="p_foot clearfix">
     <div class="container">
         <div class="footl">
@@ -367,7 +370,6 @@
 
 
 <!--底部JS加载区域-->
-<script src="/js/swiper.min.js"></script>
 <script src="/js/owl.carousel.js"></script>
 
 <script type="text/javascript" src="/js/common.js"></script>
@@ -375,81 +377,7 @@
 <script type="text/javascript" src="/js/lightbox.js"></script>
 <script type="text/javascript" src="/js/lightbox.js"></script>
 <script type="text/javascript" src="/js/banner.js"></script>
-<script>
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            1024: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-            },
-            768: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-            },
-            640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-            },
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10,
-            }
-        }
-    });
-</script>
 
-<style>
-    .swiper-container{
-        /*		overflow: unset;
-                overflow-x: hidden;*/
-        padding-bottom: 10em;
-    }
-    .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
-        bottom: 4em;
-    }
-    .swiper-pagination-bullet{
-        width: 13px;
-        height: 13px;
-        background-color: #ccc;
-        border-radius: 0;
-        opacity: 1;
-        cursor: pointer;
-    }
-    .swiper-pagination-bullet-active{
-        background-color: #d70213;
-    }
-    .swiper-slide{
-        position: relative;
-        z-index: 8;
-        overflow: hidden;
-    }
-    .swiper-slide img.img1{
-        z-index: 10;
-        position: relative;
-    }
-    .swiper-slide .img2{
-        position: absolute;
-        left:0;
-        top:0;
-        width: 100%;
-        z-index: 9;
-        /*opacity: 0;*/
-        transition: all 0.6s ease-out;
-    }
-    .swiper-slide:hover img{
-        /*opacity: 1;*/
-        transform:scale(1.1);
-        transition: all 0.6s;
-        z-index: 11;
 
-    }
-    .swiper-slide img{
-        width: 100%;
-    }
-</style>
+
+

@@ -29,13 +29,13 @@ class MessageController extends Controller
         if ($request->isXmlHttpRequest() === true || $request->method() == 'POST') {
 
 
-//            $code = $request->get('code', '');
-//
-//            $key = $_COOKIE['captcha'] ?? '';
-//            if (app('captcha')->check($code, $key) === false) {
-//                $this->setMsg(-1, '验证码错误');
-//                return $this->responseJSON();
-//            }
+            $code = $request->get('code', '');
+
+            $key = $_COOKIE['captcha'] ?? '';
+            if (app('captcha')->check($code, $key) === false) {
+                $this->setMsg(-1, '验证码错误');
+                return $this->responseJSON();
+            }
 
             $ipKey = $request->ip();
             if (Cache::has($ipKey)) {

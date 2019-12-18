@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
-class RecruitmentController extends Controller
+class JobController extends Controller
 {
     /**
      * @return mixed|string
@@ -21,6 +21,6 @@ class RecruitmentController extends Controller
     public function index()
     {
 
-        return $this->view('recruitment');
+        return $this->view('job');
     }
 }

@@ -27,9 +27,25 @@ class Article extends Model
             ->select(['id', 'type', 'parent_id', 'name', 'dir_name']);
     }
 
-    public static function getInfoByCatId($catId)
+    public static function getInfoByCatId($catId, $isSinglePage = false)
     {
-        return Article::where(['id' => $catId, 'state' => '1'])->first();
+        if ($isSinglePage == false) {
+            $article = Article::where(['id' => $catId, 'state' => '1'])->first();
+        } else {
+            $article = Article::where(['category_id' => $catId, 'state' => '1'])->first();
+            if (!empty($article->id)) {
+                return $article;
+            }
+
+            $category = Category::select(['id'])->where(['parent_id' => $catId])->orderBy('sort')->first();
+            if (!empty($category->id)) {
+                $article = Article::where(['category_id' => $category->id, 'state' => '1'])->first();
+            }
+
+        }
+
+
+        return $article;
     }
 
     public static function prevTile($catId, $id)
@@ -75,7 +91,7 @@ class Article extends Model
         $ids = Article::processCatId($catId);
 
         $sort = ($sort == 1 ? 'DESC' : 'ASC');
-        $qb = Article::select(['id', 'category_id', 'title', 'main_pic', 'abstract', 'content', 'created_at']);
+        $qb = Article::select(['id', 'category_id', 'title', 'main_pic', 'group_pic', 'abstract', 'visits', 'file_path', 'content', 'created_at', 'updated_at']);
         $qb->with('category.parent.parent');
         !empty($search) && $qb->where('title', $search);
         !empty($ids) && $qb->whereIn('category_id', $ids);
@@ -121,9 +137,13 @@ class Article extends Model
                 'id' => $value->id,
                 'title' => $value->title,
                 'main_pic' => $value->main_pic,
+                'group_pic' => $value->group_pic,
                 'abstract' => $value->abstract,
                 'content' => $value->content,
+                'visits' => $value->visits,
+                'file_path' => $value->file_path,
                 'created_at' => $value->created_at,
+                'updated_at' => $value->updated_at,
                 'link' => $path . $value->id . '.html',
             ];
         }

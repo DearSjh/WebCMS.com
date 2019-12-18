@@ -1,111 +1,226 @@
 @extends('layouts.web')
-<link href="/css/productxq.css" type="text/css" rel="stylesheet"/>
-<link href="/css/product.css" type="text/css" rel="stylesheet"/>
-
 
 @section('content')
-    <div class="main">
+    <!-- 内页banner -->
+
+    @php $info = ArticleInfo() @endphp
+
+    @if(!empty($info))
+
+        <div class="p_detail1">
+            <div class="container clearfix">
+                <div class="tab2lis">
+                    <ul class="clearfix">
+                        <li>
+                            <img src="{{ $info['main_pic'] }}">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab2ss clearfix">
+
+                    <div class="tabs2  bounceInRight1 clearfix">
+                        <div class="tabsimg">
+                            <a href=""> <img src="{{ $info['group_pic'] }}"></a>
+                        </div>
+                        <div class="texts1">
+                            <h3>{{ $info['title'] }}<p>{{ $info['abstract'] }}</p></h3>
+                            <a href="http://www.koyoai.com/message/" class="mores1">咨询客服</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <script>
+                    $(".tab2lis li").eq(0).addClass("cur");
+                    $(".tabs2").eq(0).show();
+                    $(".tab2lis li").click(function () {
+                        $(this).addClass("cur").siblings().removeClass("cur");
+                        var ind = $(this).index();
+                        $(".tabs2").eq(ind).show().siblings(".tabs2").hide();
+                    })
+                </script>
+
+                <style>
+                    .tabsimg{
+                        background: none;
+                        padding-bottom: 0;
+                    }
+                    .texts1 h3{
+                        padding-top: 0px;
+                    }
+                </style>
+
+
+            </div>
+        </div>
+
+        {!! $info['content'] !!}
+
+
+
+        <style>
+            .n_container{
+                width: 100%;
+                overflow: hidden;
+            }
+            .title3{
+                font-size: 2rem;
+                color: #333;
+                text-align: center;
+                margin: 2em 0 1em 0;
+            }
+
+            .swiper-slide {
+                text-align: center;
+                font-size: 18px;
+                background: #fff;
+
+                /* Center slide text vertically */
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+                position: relative;
+            }
+            .swiper-slide p{
+                position: absolute;
+                left: 15px;
+                bottom:10px;
+                color: #fff;
+                font-size: 1.5rem;
+            }
+            .swiper-slide img{
+                width: 100%;
+            }
+            .swiper-pagination{
+                position: relative;
+                padding-top: 20px;
+            }
+            .swiper-pagination-bullet{
+                margin:0 5px;
+            }
+            .swiper-button-next{
+                right: -66px;
+                width: 27px;
+                height: 44px;
+                margin-top: -22px;
+                z-index: 10;
+                cursor: pointer;
+                background-size: 27px 44px;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            .swiper-button-prev{
+                left: -66px;
+                width: 27px;
+                height: 44px;
+                z-index: 10;
+                cursor: pointer;
+                background-size: 27px 44px;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            .swiper-container .swiper-notification{
+                /*display: none;*/
+            }
+            ::-webkit-scrollbar {
+                width: 0px;
+            }
+            HTML {
+                scrollbar-base-color: #fff;
+                scrollbar-base-color: #fff;
+                scrollbar-3dlight-color: #fff;
+                scrollbar-highlight-color: #fff;
+                scrollbar-track-color: #fff;
+                scrollbar-arrow-color: #fff;
+                scrollbar-shadow-color: #fff;
+                scrollbar-dark-shadow-color: #fff;
+            }
+            .main4{
+                margin-top: 3em;
+            }
+            @media(max-width: 768px){
+                .swiper-slide p{
+                    font-size: 1rem;
+                }
+            }
+
+            .tabsimg {
+                background: none;
+                padding-bottom: 0;
+            }
+
+            .texts1 h3 {
+                padding-top: 0px;
+            }
+        </style>
+
+
+    @else
+
+        @include('web.banner')
+
 
         @include('web.sideLeft')
 
-        <div class="right" id="center">
-            <div class="title">
-                @foreach(TopBar() as $value)
-                    <p {{ Active($value['link'],'curr') }}>
-                        <a href="{{ $value['link'] }}">{{ $value['name'] }}</a>
-                    </p>
-                @endforeach
 
-            </div>
-            <div class="line"><b></b><i></i></div>
-            @php $info =  ArticleInfo();  @endphp
+        <!-- main -->
 
-            @if(!empty($info))
+        <div class="container n_container clearfix">
 
-                <div class="box01">
-                    <b><img src="{{ $info['main_pic'] }}" style="border:solid 1px #d2e0ce"/></b>
-                    <span>产品名称：{{ $info['title'] }}</br>系　　列：新七白系列</br>加倍莹润并呵护肌肤，令肌肤润白细腻</span>
-                </div>
-                <div class="txt">
-                    {{ $info['content'] }}
+            <div class="right">
+                <div class="content">
 
-                </div>
-                <h3>关联产品</h3>
-                <div class="box02" id="display">
-                    <ul>
-                        <li><img src="/images/product001.jpg"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白日霜</span>
-                        </li>
-                        <li><img src="/images/product002.jpg"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白润体乳</span>
-                        </li>
-                        <li><img src="/images/product003.jpg"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白嫩肤眼膜</span>
-                        </li>
-                        <li><img src="/images/product004.jpg"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白柔肤水</span>
-                        </li>
+                    <ul class="pro-list clearfix">
 
-                        <li><img src="/images/product005.png"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白润体乳</span>
-                        </li>
-                        <li><img src="/images/product002.jpg"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白嫩肤眼膜</span>
-                        </li>
-                        <li><img src="/images/product003.jpg"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白柔肤水</span>
-                        </li>
-                        <li><img src="/images/product008.png"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白日霜</span>
-                        </li>
+                        @foreach(ArticleAll(GetCatId()) as $val)
+                            <li class="item1">
+                                <a href="{{ $val['link'] }}" class="pro-a pm-btn-hover">
+                                    <div class="pic">
+                                        <img src="{{ $val['group_pic'] }}" alt="E30"/>
+                                    </div>
+                                    <div class="txts">
+                                        <p class="ti ti1">{{ $val['title'] }}</p>
+                                        <p class="ti ti2">{{ $val['abstract'] }}</p>
+                                        <div class="pro-more clearfix">
+                                            <div class="pm-btn"><span class="line"></span></div>
+                                            查看详情
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        @endforeach
 
-                        <li><img src="/images/product009.png"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白润体乳</span>
-                        </li>
-                        <li><img src="/images/product002.jpg"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白嫩肤眼膜</span>
-                        </li>
-                        <li><img src="/images/product003.jpg"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白柔肤水</span>
-                        </li>
-                        <li><img src="/images/product012.png"
-                                 style="border:solid 1px #d2e0ce"/><br/><span>新七白美白润体乳</span>
-                        </li>
                     </ul>
-                    <div class="prev"><a href="javascript:"></a></div>
-                    <div class="next"><a href="javascript:"></a></div>
+
+
                 </div>
+            </div>
 
-            @else
-
-                <div class="box02">
-                    <div class="set01">
-                        <ul>
-                            @foreach(ArticleAll(GetCatId()) as $value)
-                                <li>
-                                    <a href="{{ $value['link'] }}">
-                                        <img src="/images/013.png" style="border:solid 1px #d2e0ce"/>
-                                        <span>新七白美白嫩肤面膜（S）</span>
-                                    </a>
-                                    <p>（焕新版） 促进肌肤活力和弹性，软化老化角质，修护肤色不均。</p>
-                                </li>
-                            @endforeach
-                        </ul>
-
-                    </div>
-                </div>
-                <div class="num">
-                    <b><a href="javascript:">上一页</a></b>
-                    <span class="curr"><a href="javascript:">1</a></span>
-                    <span><a href="javascript:">2</a></span>
-                    <span><a href="javascript:">3</a></span>
-                    <span><a href="javascript:">4</a></span>
-                    <b><a href="javascript:">下一页</a></b>
-                </div>
-
-            @endif
         </div>
-    </div>
 
+
+
+    @endif
+
+    <style>
+        .left{
+            display: none;
+        }
+        .right{
+            width: 100%;
+            float: none;
+        }
+    </style>
 @endsection
 

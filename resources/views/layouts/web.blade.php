@@ -24,6 +24,16 @@
     <script src="/js/jquery.SuperSlide.2.1.1.js"></script>
     <script src="/js/swiper.min.js"></script>
 
+    <script type="text/javascript">
+        $(function () {
+            $('.translate > li').hover(function () {
+                $(this).find('.translate-en').stop().show();
+            }, function () {
+                $(this).find('.translate-en').stop().hide();
+            });
+        });
+    </script>
+
 
 </head>
 <body>

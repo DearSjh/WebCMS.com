@@ -22,7 +22,7 @@ class AddCategory
 
             'type' => 'required|integer|in:1,2',
             'state' => 'required|integer|in:0,1',
-            'dir_name' => 'alpha|max:20',
+            'dir_name' => 'required|string|max:20',
         ];
     }
 

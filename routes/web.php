@@ -25,15 +25,14 @@ $router->get('/', 'Web\\IndexController@index');
 $router->get('/aboutUs[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\AboutUsController@index'); // 关于我们
 $router->get('/contactUs[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\ContactUsController@index'); // 联系我们
 $router->get('/download[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\DownloadController@index'); // 下载
-$router->get('/index[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\IndexController@index'); // 首页
-$router->get('/message[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\MessageController@index'); // 留言
-$router->post('/message[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\MessageController@index'); // 留言
 $router->get('/news[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\NewsController@index'); // 新闻
 $router->get('/product[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\ProductController@index'); // 产品
 $router->get('/case[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\CaseController@index'); // 案例
-$router->get('/recruitment[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\RecruitmentController@index'); // 招聘
+$router->get('/job[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\JobController@index'); // 招聘
 $router->get('/solution[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\SolutionController@index'); // 解决方案
 $router->get('/service[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\ServiceController@index'); //
+$router->get('/message[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\MessageController@index'); // 留言
+$router->post('/message[/{cateId1}[/{cateId2}[/{cateId3}[/{cateId4}]]]]', 'Web\\MessageController@index'); // 留言
 $router->get('/col', 'Web\\TongJiController@collect'); // 统计
 $router->get('/captcha', 'Web\\CaptchaController@create'); // 验证码
 $router->get('/delCache', 'Web\\CacheController@del'); // 清除缓存

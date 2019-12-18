@@ -20,6 +20,7 @@ class Recruitment extends Model
         static::addGlobalScope(new LangScope());
 
     }
+
     public static function addRecruitment($params)
     {
         $self = new self();
@@ -28,6 +29,7 @@ class Recruitment extends Model
         !empty($params['nature']) && $self->nature = $params['nature'];
         !empty($params['number']) && $self->number = $params['number'];
         !empty($params['gender']) && $self->gender = $params['gender'];
+        !empty($params['age']) && $self->age = $params['age'];
         !empty($params['wages']) && $self->wages = $params['wages'];
         !empty($params['effective']) && $self->effective = $params['effective'];
         !empty($params['experience']) && $self->experience = $params['experience'];
@@ -60,6 +62,7 @@ class Recruitment extends Model
         $self->nature = ($params['nature'] ?? '');
         $self->number = ($params['number'] ?? '');
         $self->gender = ($params['gender'] ?? '');
+        $self->age = (empty($params['age']) ? '无' : $params['age']);
         $self->wages = ($params['wages'] ?? '');
         $self->effective = ($params['effective'] ?? '');
         $self->experience = ($params['experience'] ?? '');
@@ -77,7 +80,7 @@ class Recruitment extends Model
     public static function recruitmentList($params, $parPage = PER_PAGE, $page = FIRST_PAGE)
     {
 
-        $qb = self::select(['id','name','place','nature','number', 'effective','state','created_at']);
+        $qb = self::select(['id', 'name', 'place', 'nature', 'number', 'effective', 'state', 'created_at']);
 
         !empty($params['name']) && !empty($params['name']) && $qb->where('name', $params['name']);
         !empty($params['begin_time']) && $qb->where('created_at', '>=', $params['begin_time']);
@@ -87,11 +90,13 @@ class Recruitment extends Model
 
         return $qb->paginate($parPage, ['*'], 'page', $page);
     }
+
     public static function detail($id)
     {
         return self::select('*')->where(['id' => $id])->first();
 
     }
+
     public static function del($ids)
     {
         $ret = self::whereIn('id', $ids)->delete();
